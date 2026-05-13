@@ -55,3 +55,49 @@ sr.reveal('.home__data, .about__img, .skills__subtitle, .skills__text',{});
 sr.reveal('.home__img, .about__subtitle, .about__text, .skills__img',{delay: 400}); 
 sr.reveal('.home__social-icon',{ interval: 200}); 
 sr.reveal('.skills__data, .work__img, .contact__input',{interval: 200}); 
+
+const roles = [
+  "Student",
+  "Full-Stack Dev",
+  "Problem Solver",
+  "ML Enthusiast"
+
+  
+];
+
+let roleIndex = 0;     // which phrase
+let charIndex = 0;     // typing position
+let deleting = false;  // deleting mode or not
+const typingSpeed = 120;
+const deletingSpeed = 60;
+const delayBetweenRoles = 1500; // pause before new word
+
+const changingText = document.getElementById("changing-text");
+
+function typeEffect() {
+    let current = roles[roleIndex];
+    
+    if (!deleting) {
+        // typing
+        changingText.textContent = current.substring(0, charIndex + 1);
+        charIndex++;
+        
+        if (charIndex === current.length) {
+            deleting = true;
+            setTimeout(typeEffect, delayBetweenRoles);
+            return;
+        }
+    } else {
+        // deleting
+        changingText.textContent = current.substring(0, charIndex - 1);
+        charIndex--;
+        
+        if (charIndex === 0) {
+            deleting = false;
+            roleIndex = (roleIndex + 1) % roles.length; // cycle phrases
+        }
+    }
+    setTimeout(typeEffect, deleting ? deletingSpeed : typingSpeed);
+}
+
+typeEffect();
