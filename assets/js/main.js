@@ -60,7 +60,7 @@ const roles = [
   "Student",
   "Full-Stack Dev",
   "Problem Solver",
-  "ML Enthusiast"
+ 
 
   
 ];
